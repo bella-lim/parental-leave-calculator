@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 육아휴직 급여 계산기 | 월 최대 250만원, 1분 만에 계산</title>
+<meta name="description" content="2025년 인상안이 반영된 육아휴직 급여 계산기. 월 통상임금만 입력하면 1~3개월 250만원, 4~6개월 200만원, 7개월 이후 160만원 상한 기준으로 매월 수령액을 바로 계산해 드립니다. 한부모·6+6 부모육아휴직제 특례도 지원.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"2026 육아휴직 급여 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"2025년 인상안 기준 육아휴직 급여 예상액을 계산하는 무료 웹 계산기"}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blue:#1d4ed8;--blue-d:#1e3a8a;--bg:#f1f5f9;--card:#fff;--txt:#0f172a;--mut:#64748b;--line:#e2e8f0;--acc:#f59e0b}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;background:var(--bg);color:var(--txt);line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+header{text-align:center;padding:28px 8px 20px}
+.badge{display:inline-block;background:#dbeafe;color:var(--blue-d);font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:10px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.sub{color:var(--mut);font-size:14px;margin-top:6px}
+.card{background:var(--card);border-radius:16px;padding:22px 18px;margin-top:16px;box-shadow:0 1px 3px rgba(15,23,42,.08)}
+.card h2{font-size:16px;font-weight:700;margin-bottom:14px}
+label.lbl{display:block;font-size:13px;font-weight:700;color:var(--mut);margin:14px 0 6px}
+label.lbl:first-of-type{margin-top:0}
+.inrow{display:flex;align-items:center;gap:8px}
+input[type=number]{flex:1;font-size:20px;font-weight:700;padding:12px 14px;border:2px solid var(--line);border-radius:12px;outline:none;width:100%}
+input[type=number]:focus{border-color:var(--blue)}
+.unit{font-size:16px;font-weight:700;color:var(--mut);white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--blue);margin-top:6px}
+.mval{text-align:center;font-size:22px;font-weight:800;color:var(--blue-d);margin-top:4px}
+.mval small{font-size:14px;color:var(--mut);font-weight:600}
+.types{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.type{border:2px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;font-size:13px;font-weight:700;transition:.15s;background:#fff}
+.type small{display:block;font-weight:400;color:var(--mut);font-size:11px;margin-top:4px;line-height:1.4}
+.type.on{border-color:var(--blue);background:#eff6ff;color:var(--blue-d)}
+.result{background:linear-gradient(135deg,var(--blue-d),var(--blue));color:#fff;border-radius:16px;padding:24px 20px;margin-top:16px;text-align:center}
+.result .t{font-size:13px;opacity:.85}
+.result .big{font-size:38px;font-weight:800;margin:6px 0;letter-spacing:-1px}
+.result .big small{font-size:18px;font-weight:600}
+.result .row{display:flex;justify-content:center;gap:24px;margin-top:10px;font-size:13px}
+.result .row b{display:block;font-size:18px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+th{background:#f8fafc;color:var(--mut);font-size:12px;padding:10px 8px;border-bottom:2px solid var(--line)}
+td{padding:11px 8px;border-bottom:1px solid var(--line);text-align:center}
+td.amt{font-weight:800;color:var(--blue-d)}
+td.per{color:var(--mut);font-size:12px;text-align:left}
+tr:last-child td{border-bottom:none}
+.note66{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;font-size:13px;margin-top:12px;display:none}
+.faq details{border-bottom:1px solid var(--line);padding:12px 2px}
+.faq summary{font-weight:700;font-size:14px;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q. ";color:var(--blue)}
+.faq p{font-size:13px;color:var(--mut);margin-top:8px;padding-left:2px}
+.info{font-size:13px;color:var(--mut)}
+.info li{margin:8px 0 8px 18px}
+.info b{color:var(--txt)}
+footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-height:1.8}
+.warn{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:12px;padding:12px 14px;font-size:12px;margin-top:16px}
+.cnav{display:flex;gap:8px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
+.cnav a{font-size:13px;font-weight:700;color:var(--mut);text-decoration:none;padding:8px 16px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.cnav a.on{background:var(--blue-d);color:#fff;border-color:var(--blue-d)}
+.cmp{display:flex;gap:10px}
+.cmpbox{flex:1;border-radius:12px;padding:14px 8px;text-align:center}
+.cmpbox.old{background:#f8fafc;border:1px solid var(--line)}
+.cmpbox.new{background:#eff6ff;border:1px solid #bfdbfe}
+.cl{font-size:12px;font-weight:700;color:var(--mut)}
+.cv{font-size:24px;font-weight:800;margin:4px 0;letter-spacing:-.5px}
+.cv small{font-size:14px;font-weight:600}
+.cmpbox.new .cv{color:var(--blue-d)}
+.cd{font-size:11px;color:var(--mut);line-height:1.5}
+.diff{text-align:center;font-size:20px;font-weight:800;color:#059669;margin-top:12px}
+.fn{font-size:11px;color:var(--mut);margin-top:8px;line-height:1.6}
+.bar-row{display:flex;align-items:center;gap:8px;margin:9px 0;font-size:12px}
+.bar-lb{width:78px;flex-shrink:0;color:var(--mut);font-weight:700}
+.bar-track{flex:1;background:#f1f5f9;border-radius:6px;height:22px}
+.bar-fill{height:100%;border-radius:6px;min-width:4px}
+.bar-vl{width:70px;text-align:right;font-weight:800;flex-shrink:0}
+.rel a{display:block;padding:14px;border:1px solid var(--line);border-radius:12px;margin-top:8px;text-decoration:none;color:var(--txt)}
+.rel a b{font-size:14px}
+.rel a span{display:block;font-size:12px;color:var(--mut);margin-top:2px}
+@media print{.card.input-card,header .sub,footer{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="cnav">
+<a href="index.html" class="on">육아휴직 급여</a>
+<a href="danchuk.html">단축근무 급여</a>
+<a href="chulsan.html">출산휴가 급여</a>
+</nav>
+
+<header>
+<div class="badge">2025년 인상안 반영 · 2026년 최신 기준</div>
+<h1>육아휴직 급여 계산기</h1>
+<p class="sub">월 통상임금만 입력하세요. 매월 얼마를 받는지 1분 만에 계산됩니다.</p>
+</header>
+
+<div class="card input-card">
+<h2>📝 내 정보 입력</h2>
+<label class="lbl" for="wage">월 통상임금 (세전, 기본급+고정수당)</label>
+<div class="inrow">
+<input type="number" id="wage" inputmode="numeric" placeholder="예: 300" min="0" max="10000">
+<span class="unit">만원</span>
+</div>
+<label class="lbl" for="months">육아휴직 사용 개월 수</label>
+<input type="range" id="months" min="1" max="18" value="12" step="1">
+<div class="mval"><span id="monthsVal">12</span><small>개월</small></div>
+<label class="lbl">적용 유형</label>
+<div class="types" id="types">
+<div class="type on" data-t="general">일반<small>1~3개월 100%<br>상한 250만원</small></div>
+<div class="type" data-t="single">한부모<small>첫 3개월 상한<br>300만원</small></div>
+<div class="type" data-t="plus66">6+6 부모육아휴직<small>첫 6개월 상한<br>최대 450만원</small></div>
+</div>
+</div>
+
+<div class="result" id="resultBox" style="display:none">
+<div class="t" id="resTitle">예상 수령액</div>
+<div class="big"><span id="totalAmt">0</span><small>만원</small></div>
+<div class="row">
+<div>월평균<b id="avgAmt">0만원</b></div>
+<div>사용 개월<b id="useMonths">12개월</b></div>
+</div>
+</div>
+
+<div class="card" id="cmpCard" style="display:none">
+<h2>📈 2024년 vs 2026년, 얼마나 더 받게 됐을까?</h2>
+<div class="cmp">
+<div class="cmpbox old"><div class="cl">2024년 제도</div><div class="cv"><span id="oldTotal">0</span><small>만원</small></div><div class="cd">상한 월 150만원 · 80%<br>25% 사후지급</div></div>
+<div class="cmpbox new"><div class="cl">2026년 제도</div><div class="cv"><span id="newTotal">0</span><small>만원</small></div><div class="cd">상한 월 250만원 · 첫 6개월 100%<br>전액 매월 지급</div></div>
+</div>
+<div class="diff" id="diffBox"></div>
+<p class="fn">* 일반 육아휴직 기준, 같은 통상임금·같은 개월 수로 비교한 예상액입니다.<br>* 2024년 금액은 사후지급금(25%)을 포함한 총액 기준입니다.</p>
+</div>
+
+<div class="card" id="tableCard" style="display:none">
+<h2>📊 월별 지급明细</h2>
+<table>
+<thead><tr><th>휴직 개월차</th><th>월 지급액</th><th>적용 기준</th></tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+<div class="note66" id="note66">💡 <b>6+6 제도</b>는 생후 18개월 이내 자녀에 대해 부모가 모두 육아휴직을 사용할 때 적용됩니다. 배우자도 같은 조건이면 <b>부부 합산 6개월 최대 3,900만원</b>까지 받을 수 있어요.</div>
+<h2 style="margin-top:20px">📊 월별 지급액 그래프</h2>
+<div id="chart"></div>
+</div>
+
+<div class="card">
+<h2>📌 2025년부터 이렇게 바뀌었어요</h2>
+<ul class="info">
+<li><b>급여 상한 인상</b>: 1~3개월 <b>250만원</b> / 4~6개월 <b>200만원</b> / 7개월 이후 <b>160만원</b> (기존 월 150만원)</li>
+<li><b>소득대체율 인상</b>: 첫 6개월은 통상임금의 <b>100%</b>, 7개월 이후 80%</li>
+<li><b>사후지급금 폐지</b>: 예전처럼 25%를 떼어두지 않고 <b>매월 전액 지급</b></li>
+<li><b>기간 연장</b>: 부모가 각각 3개월 이상 사용하면 <b>최대 1년 6개월</b> (한부모·중증장애아동 부모는 조건 없이 18개월)</li>
+<li><b>6+6 부모육아휴직제</b>: 생후 18개월 이내 자녀, 부모 모두 사용 시 첫 6개월 상한이 월 200→450만원으로 단계 상승</li>
+</ul>
+</div>
+
+<div class="card faq">
+<h2>❓ 자주 묻는 질문</h2>
+<details><summary>통상임금이 뭔가요?</summary><p>기본급에 고정적으로 지급되는 수당(직책수당, 근속수당 등)을 합친 세전 금액입니다. 성과급·상여금 같은 변동 급여는 제외됩니다. 정확한 금액은 급여명세서나 회사 인사팀에 확인하세요.</p></details>
+<details><summary>사후지급금은 정말 없어졌나요?</summary><p>네. 2025년 1월부터 폐지되어 휴직 기간 중에 급여 전액을 매월 받습니다. 이전처럼 복직 후 6개월을 기다릴 필요가 없어요.</p></details>
+<details><summary>6+6 제도는 누가 받을 수 있나요?</summary><p>생후 18개월 이내의 자녀에 대해 부모가 모두(동시 또는 순차) 육아휴직을 사용하면 적용됩니다. 각자 첫 6개월에 대해 상한 200→250→300→350→400→450만원이 단계적으로 적용돼요.</p></details>
+<details><summary>육아휴직 급여에 세금이 붙나요?</summary><p>아니요. 육아휴직 급여는 소득세 비과세입니다.</p></details>
+<details><summary>신청은 어떻게 하나요?</summary><p>① 휴직 시작 30일 전까지 회사에 육아휴직 신청 → ② 휴직 시작 후 고용24(work24.go.kr)에서 매월 급여 신청. 회사가 '육아휴직 확인서'를 먼저 등록해야 합니다.</p></details>
+</div>
+
+<div class="card">
+<h2>🔗 함께 보면 좋은 계산기</h2>
+<div class="rel">
+<a href="danchuk.html"><b>육아기 근로시간 단축 급여 계산기 →</b><span>2026년 상한 250만원 기준 · 주당 단축시간으로 계산</span></a>
+<a href="chulsan.html"><b>출산전후휴가 급여 계산기 →</b><span>2026년 상한 월 220만원 · 90일/120일 지원금 계산</span></a>
+</div>
+</div>
+
+<div class="warn">⚠️ 이 계산기는 2025년 1월 1일 시행 제도(2026년 유지)를 기준으로 한 <b>예상액</b>입니다. 실제 지급액은 고용센터 심사 결과에 따라 달라질 수 있으니, 정확한 금액은 <b>고용24(work24.go.kr)</b>에서 확인하세요.</div>
+
+<footer>
+2025.1.1 시행 육아지원 제도 기준 · 2026년 10월 확인<br>
+본 페이지는 정보 제공 목적이며, 법률 자문이 아닙니다.
+</footer>
+
+</div>
+
+<script>
+const FLOOR = 70;
+const CAP66 = [200, 250, 300, 350, 400, 450];
+let curType = 'general';
+
+function monthly(wage, type, m) {
+  let rate, cap, label;
+  if (type === 'single') {
+    if (m <= 3)      { rate = 1.0; cap = 300; label = '통상임금 100% (상한 300만원)'; }
+    else if (m <= 6) { rate = 1.0; cap = 200; label = '통상임금 100% (상한 200만원)'; }
+    else             { rate = 0.8; cap = 160; label = '통상임금 80% (상한 160만원)'; }
+  } else if (type === 'plus66') {
+    if (m <= 6)      { rate = 1.0; cap = CAP66[m-1]; label = '통상임금 100% (6+6 상한 ' + cap + '만원)'; }
+    else             { rate = 0.8; cap = 160; label = '통상임금 80% (상한 160만원)'; }
+  } else {
+    if (m <= 3)      { rate = 1.0; cap = 250; label = '통상임금 100% (상한 250만원)'; }
+    else if (m <= 6) { rate = 1.0; cap = 200; label = '통상임금 100% (상한 200만원)'; }
+    else             { rate = 0.8; cap = 160; label = '통상임금 80% (상한 160만원)'; }
+  }
+  let amt = Math.min(Math.floor(wage * rate), cap);
+  amt = Math.max(amt, FLOOR);
+  return { amt, label };
+}
+
+function monthly2024(wage, m) {
+  // 2024년 제도: 통상임금 80%, 상한 월 150만원, 하한 70만원 (사후지급금 25%는 총액에 포함)
+  return Math.max(Math.min(Math.floor(wage * 0.8), 150), FLOOR);
+}
+
+const fmt = n => n.toLocaleString('ko-KR');
+
+function barColor(from) {
+  if (from <= 3) return '#1d4ed8';
+  if (from <= 6) return '#3b82f6';
+  return '#93c5fd';
+}
+
+function recalc() {
+  const wage = parseFloat(document.getElementById('wage').value);
+  const months = parseInt(document.getElementById('months').value, 10);
+  document.getElementById('monthsVal').textContent = months;
+  const box = document.getElementById('resultBox');
+  const tc = document.getElementById('tableCard');
+  if (!wage || wage <= 0) { box.style.display = 'none'; tc.style.display = 'none'; document.getElementById('cmpCard').style.display = 'none'; return; }
+
+  // 월별 계산 후 연속 동일 구간 묶기
+  const rows = [];
+  for (let m = 1; m <= months; m++) rows.push({ m, ...monthly(wage, curType, m) });
+  const groups = [];
+  rows.forEach(r => {
+    const g = groups[groups.length - 1];
+    if (g && g.amt === r.amt && g.label === r.label) g.to = r.m;
+    else groups.push({ from: r.m, to: r.m, amt: r.amt, label: r.label });
+  });
+
+  const total = rows.reduce((s, r) => s + r.amt, 0);
+  document.getElementById('totalAmt').textContent = fmt(total);
+  document.getElementById('avgAmt').textContent = fmt(Math.round(total / months)) + '만원';
+  document.getElementById('useMonths').textContent = months + '개월';
+  const titles = { general: '일반 육아휴직 예상 수령액', single: '한부모 육아휴직 예상 수령액', plus66: '6+6 부모육아휴직 예상 수령액' };
+  document.getElementById('resTitle').textContent = titles[curType];
+
+  document.getElementById('tbody').innerHTML = groups.map(g =>
+    '<tr><td>' + (g.from === g.to ? g.from + '개월차' : g.from + '~' + g.to + '개월차') + '</td>' +
+    '<td class="amt">' + fmt(g.amt) + '만원</td>' +
+    '<td class="per">' + g.label + '</td></tr>'
+  ).join('');
+
+  document.getElementById('note66').style.display = curType === 'plus66' ? 'block' : 'none';
+
+  // 막대 그래프
+  const maxAmt = Math.max(...groups.map(g => g.amt));
+  document.getElementById('chart').innerHTML = groups.map(g =>
+    '<div class="bar-row"><div class="bar-lb">' + (g.from === g.to ? g.from + '개월차' : g.from + '~' + g.to + '개월차') + '</div>' +
+    '<div class="bar-track"><div class="bar-fill" style="width:' + Math.max(2, Math.round(g.amt / maxAmt * 100)) + '%;background:' + barColor(g.from) + '"></div></div>' +
+    '<div class="bar-vl">' + fmt(g.amt) + '만원</div></div>'
+  ).join('');
+
+  // 2024 vs 2026 비교 (일반 기준)
+  let oldT = 0;
+  for (let m = 1; m <= months; m++) oldT += monthly2024(wage, m);
+  const newT = rows.reduce((s, r) => s + (curType === 'general' ? r.amt : monthly(wage, 'general', r.m).amt), 0);
+  const diff = newT - oldT;
+  document.getElementById('oldTotal').textContent = fmt(oldT);
+  document.getElementById('newTotal').textContent = fmt(newT);
+  document.getElementById('diffBox').textContent = '+' + fmt(diff) + '만원 더 받게 됐어요 (' + Math.round(diff / oldT * 100) + '%↑)';
+  document.getElementById('cmpCard').style.display = 'block';
+
+  box.style.display = 'block';
+  tc.style.display = 'block';
+}
+
+document.getElementById('wage').addEventListener('input', recalc);
+document.getElementById('months').addEventListener('input', recalc);
+document.querySelectorAll('.type').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.type').forEach(x => x.classList.remove('on'));
+    el.classList.add('on');
+    curType = el.dataset.t;
+    recalc();
+  });
+});
+</script>
+</body>
+</html>
