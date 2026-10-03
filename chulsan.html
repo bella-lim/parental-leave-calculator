@@ -139,7 +139,8 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-he
 
 <footer>
 2026년 출산전후휴가 급여 상한액 고시 기준 · 2026년 10월 확인<br>
-본 페이지는 정보 제공 목적이며, 법률 자문이 아닙니다.
+본 페이지는 정보 제공 목적이며, 법률 자문이 아닙니다.<br>
+<span id="visit-wrap">누적 방문자 <b id="visit-count" style="color:var(--blue-d)">–</b>명</span>
 </footer>
 
 </div>
@@ -188,6 +189,12 @@ document.querySelectorAll('#birth .opt').forEach(el => el.addEventListener('clic
   document.querySelectorAll('#birth .opt').forEach(x => x.classList.remove('on'));
   el.classList.add('on'); birth = el.dataset.b; recalc();
 }));
+</script>
+<script>
+fetch('https://abacus.jasoncameron.dev/hit/parental-leave-calc/visits')
+  .then(r=>r.json())
+  .then(d=>{document.getElementById('visit-count').textContent=Number(d.value).toLocaleString();})
+  .catch(()=>{document.getElementById('visit-wrap').style.display='none';});
 </script>
 </body>
 </html>
