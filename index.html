@@ -90,7 +90,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-he
 </head>
 <body>
 <div class="wrap">
-<div id="visit-topbar" style="background:var(--blue-d);color:#fff;text-align:center;font-size:12px;padding:6px 12px;border-radius:12px;margin-bottom:10px;letter-spacing:.2px">누적 방문자 <b id="visit-count-top">–</b>명</div>
+<div id="visit-topbar" style="background:var(--blue-d);color:#fff;text-align:center;font-size:12px;padding:6px 12px;border-radius:12px;margin-bottom:10px;letter-spacing:.2px">누적 방문자 <b id="visit-count-top">–</b>명 · 오늘 <b id="visit-daily-top">–</b>명</div>
 
 <nav class="cnav">
 <a href="index.html" class="on">육아휴직 급여</a>
@@ -182,10 +182,46 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-he
 
 <div class="warn">⚠️ 이 계산기는 2025년 1월 1일 시행 제도(2026년 유지)를 기준으로 한 <b>예상액</b>입니다. 실제 지급액은 고용센터 심사 결과에 따라 달라질 수 있으니, 정확한 금액은 <b>고용24(work24.go.kr)</b>에서 확인하세요.</div>
 
+
+<!-- 쿠팡파트너스 제휴 상품 -->
+<style>
+.aff-sec{max-width:720px;margin:24px auto 0;padding:0 16px}
+.aff-sec h3{font-size:16px;font-weight:800;margin-bottom:12px;color:var(--blue-d)}
+.aff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.aff-card{background:#fff;border:1px solid #ffd8a8;border-radius:14px;padding:14px;position:relative}
+.aff-card::before{content:"AD";position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;color:#fff;background:#ff6b35;padding:2px 7px;border-radius:999px}
+.aff-name{font-size:13px;font-weight:700;line-height:1.4;margin:6px 0}
+.aff-promo{font-size:11px;color:#e8590c;margin-bottom:6px}
+.aff-price{font-size:17px;font-weight:800;color:#d9480f}
+.aff-orig{font-size:11px;color:#999;text-decoration:line-through;margin-left:6px}
+.aff-link{display:block;text-align:center;background:#ff6b35;color:#fff!important;font-weight:700;padding:9px;border-radius:10px;font-size:13px;margin-top:8px;text-decoration:none}
+.aff-note{font-size:9px;color:#999;text-align:center;margin-top:4px}
+</style>
+<div class="aff-sec">
+<h3>🛒 육아맘 생필품 특가</h3>
+<div class="aff-grid" id="aff-grid"></div>
+</div>
+<script>
+(function(){
+var PRODS=[
+{name:'크리넥스 3겹 화장지 30롤',promo:'자주 사는 생필품 1위!',price:28900,orig:35900,link:'https://link.coupang.com/a/hy48GhQXiS'},
+{name:'다우니 세탁세제 1.9L',promo:'대용량이라 오래 써요',price:18900,orig:24900,link:'https://link.coupang.com/a/hy5bTRXN6r'},
+{name:'탐사 물티슈 100매 20팩',promo:'육아 필수템!',price:15900,orig:21900,link:'https://link.coupang.com/a/hy5dyJr22S'},
+{name:'TS 샴푸+트리트먼트 세트',promo:'실구매자 평점 높음',price:21900,orig:29000,link:'https://link.coupang.com/a/hy5eOMpeVM'},
+{name:'퐁퐁 주방세제 1.2L',promo:'기름때 싹!',price:12900,orig:16900,link:'https://link.coupang.com/a/hy5f2qXnQO'},
+{name:'햇반 백미 24개',promo:'바쁠 때 한 끼 해결!',price:27900,orig:33800,link:'https://link.coupang.com/a/hy5hmeibUy'}
+];
+document.getElementById('aff-grid').innerHTML=PRODS.map(function(p){
+var d=Math.round((1-p.price/p.orig)*100);
+return '<div class="aff-card"><div class="aff-name">'+p.name+'</div><div class="aff-promo">'+p.promo+'</div><div><span class="aff-price">'+p.price.toLocaleString()+'원</span><span class="aff-orig">'+p.orig.toLocaleString()+'원</span> <span style="font-size:11px;font-weight:700;color:#fff;background:#e8590c;padding:2px 7px;border-radius:999px">'+d+'%</span></div><a class="aff-link" href="'+p.link+'" target="_blank" rel="noopener sponsored">쿠팡에서 보기 →</a><div class="aff-note">쿠팡파트너스 활동으로 수수료를 받을 수 있습니다</div></div>';
+}).join('');
+})();
+</script>
+
 <footer>
 2025.1.1 시행 육아지원 제도 기준 · 2026년 10월 확인<br>
 본 페이지는 정보 제공 목적이며, 법률 자문이 아닙니다.<br>
-<span id="visit-wrap">누적 방문자 <b id="visit-count" style="color:var(--blue-d)">–</b>명</span>
+<span id="visit-wrap">누적 방문자 <b id="visit-count" style="color:var(--blue-d)">–</b>명 · 오늘 <b id="visit-daily" style="color:var(--blue-d)">–</b>명</span>
 </footer>
 
 </div>
@@ -294,7 +330,16 @@ document.querySelectorAll('.type').forEach(el => {
 });
 </script>
 <script>
-fetch('https://abacus.jasoncameron.dev/hit/parental-leave-calc/visits')
+var today = new Date().toLocaleDateString('en-CA', {timeZone:'Asia/Seoul'});
+  fetch('https://abacus.jasoncameron.dev/hit/parental-leave-calc/visits-' + today)
+    .then(r=>r.json())
+    .then(d=>{
+      var dv=Number(d.value).toLocaleString();
+      document.getElementById('visit-daily').textContent=dv;
+      document.getElementById('visit-daily-top').textContent=dv;
+    })
+    .catch(()=>{});
+  fetch('https://abacus.jasoncameron.dev/hit/parental-leave-calc/visits')
   .then(r=>r.json())
   .then(d=>{
     var v=Number(d.value).toLocaleString();
