@@ -147,7 +147,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-he
 <thead><tr><th>휴직 개월차</th><th>월 지급액</th><th>적용 기준</th></tr></thead>
 <tbody id="tbody"></tbody>
 </table>
-<div class="note66" id="note66">💡 <b>6+6 제도</b>는 생후 18개월 이내 자녀에 대해 부모가 모두 육아휴직을 사용할 때 적용됩니다. 배우자도 같은 조건이면 <b>부부 합산 6개월 최대 3,900만원</b>까지 받을 수 있어요.</div>
+<div class="note66" id="note66">💡 <b>6+6 제도</b>는 생후 18개월 이내 자녀에 대해 부모가 모두 육아휴직을 사용할 때 적용됩니다. 배우자도 같은 조건이면 <b>부부 합산 6개월 최대 4,000만원</b>까지 받을 수 있어요.</div>
 <h2 style="margin-top:20px">📊 월별 지급액 그래프</h2>
 <div id="chart"></div>
 </div>
@@ -159,7 +159,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-he
 <li><b>소득대체율 인상</b>: 첫 6개월은 통상임금의 <b>100%</b>, 7개월 이후 80%</li>
 <li><b>사후지급금 폐지</b>: 예전처럼 25%를 떼어두지 않고 <b>매월 전액 지급</b></li>
 <li><b>기간 연장</b>: 부모가 각각 3개월 이상 사용하면 <b>최대 1년 6개월</b> (한부모·중증장애아동 부모는 조건 없이 18개월)</li>
-<li><b>6+6 부모육아휴직제</b>: 생후 18개월 이내 자녀, 부모 모두 사용 시 첫 6개월 상한이 월 200→450만원으로 단계 상승</li>
+<li><b>6+6 부모육아휴직제</b>: 생후 18개월 이내 자녀, 부모 모두 사용 시 첫 6개월 상한이 월 250·250·300·350·400·450만원으로 단계 상승</li>
 </ul>
 </div>
 
@@ -167,7 +167,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;line-he
 <h2>❓ 자주 묻는 질문</h2>
 <details><summary>통상임금이 뭔가요?</summary><p>기본급에 고정적으로 지급되는 수당(직책수당, 근속수당 등)을 합친 세전 금액입니다. 성과급·상여금 같은 변동 급여는 제외됩니다. 정확한 금액은 급여명세서나 회사 인사팀에 확인하세요.</p></details>
 <details><summary>사후지급금은 정말 없어졌나요?</summary><p>네. 2025년 1월부터 폐지되어 휴직 기간 중에 급여 전액을 매월 받습니다. 이전처럼 복직 후 6개월을 기다릴 필요가 없어요.</p></details>
-<details><summary>6+6 제도는 누가 받을 수 있나요?</summary><p>생후 18개월 이내의 자녀에 대해 부모가 모두(동시 또는 순차) 육아휴직을 사용하면 적용됩니다. 각자 첫 6개월에 대해 상한 200→250→300→350→400→450만원이 단계적으로 적용돼요.</p></details>
+<details><summary>6+6 제도는 누가 받을 수 있나요?</summary><p>생후 18개월 이내의 자녀에 대해 부모가 모두(동시 또는 순차) 육아휴직을 사용하면 적용됩니다. 각자 첫 6개월에 대해 상한 250만원(1·2개월)·300만원(3개월)·350만원(4개월)·400만원(5개월)·450만원(6개월)이 단계적으로 적용돼요.</p></details>
 <details><summary>육아휴직 급여에 세금이 붙나요?</summary><p>아니요. 육아휴직 급여는 소득세 비과세입니다.</p></details>
 <details><summary>신청은 어떻게 하나요?</summary><p>① 휴직 시작 30일 전까지 회사에 육아휴직 신청 → ② 휴직 시작 후 고용24(work24.go.kr)에서 매월 급여 신청. 회사가 '육아휴직 확인서'를 먼저 등록해야 합니다.</p></details>
 </div>
@@ -228,7 +228,7 @@ return '<div class="aff-card"><div class="aff-name">'+p.name+'</div><div class="
 
 <script>
 const FLOOR = 70;
-const CAP66 = [200, 250, 300, 350, 400, 450];
+const CAP66 = [250, 250, 300, 350, 400, 450];
 let curType = 'general';
 
 function monthly(wage, type, m) {
